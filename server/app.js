@@ -3,7 +3,11 @@ const app = express();
 const PORT = 3000;
 
 app.get('/', (req, res)=>{
-    res.send("Hello");
+    res.send("Show QUIZ Home");
+})
+
+app.get('/home', (req, res) => {
+    res.send("Home");
 })
 
 app.listen(PORT, () => {
