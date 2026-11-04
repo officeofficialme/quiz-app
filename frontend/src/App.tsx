@@ -1,19 +1,21 @@
-// import { useState } from "react";
-import Login from "./components/Login.tsx";
-import RegisterPage from "./components/RegisterPage.tsx";
-import Home from "./components/Home.tsx";
-import { BrowserRouter, Routes, Route, Link } from "react-router";
+import { BrowserRouter, Routes, Route } from "react-router";
+import Home from "./pages/Home";
+import Sidebar from "./pages/components/Sidebar";
+
 // import Counter from "./components/Counter.tsx";
 
 export const App = () => {
   return (
-    <BrowserRouter>
-      {/* <Counter /> */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/auth/login" element={<Login />} />
-        <Route path="/auth/reg" element={<RegisterPage />} />
-      </Routes>
-    </BrowserRouter>
+    <div className="flex">
+      <Sidebar />
+      <BrowserRouter>
+        {/* <Counter /> */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/* <Route path="/auth/login" element={<Login />} />
+        <Route path="/auth/reg" element={<RegisterPage />} /> */}
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 };

@@ -1,37 +1,110 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 * {
-  outline: none;
+  transition-property: background-color, border-color, color;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
 }
 
-#hamburger-icon:hover {
-  animation-name: hamburger-behavior;
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-iteration-count:  infinite;
+:root {
+  /* BRAND COLORS - NEVER CHANGE */
+  --primary: #7020f0;
+  --primary-dark: #5010f0;
+  --secondary: #9333ff;
+  --accent-pink: #ec4dff;
+  --accent-cyan: #00c8ff;
+  --accent-blue: #2563eb;
+
+  /* GRADIENTS */
+  --gradient-primary: linear-gradient(135deg, #9333ff, #7020f0, #5010f0);
+
+  --gradient-purple: linear-gradient(135deg, #7020f0, #ec4dff);
+
+  --gradient-cyan: linear-gradient(135deg, #2563eb, #00c8ff);
+
+  /* STATUS COLORS */
+  --success: #20dfa0;
+  --warning: #ffbd45;
+  --error: #ff5277;
+  --info: #00c8ff;
 }
 
-/* 
-#first-bar, #second-bar, #third-bar{
-    background-color: blue !important;
-    position: absolute !important;
-    } */
+/* =================================
+   DARK THEME
+================================= */
 
-@keyframes hamburger-behavior {
-  0%, 100% {
-    #first-bar,
-    #second-bar,
-    #third-bar {
-      background-color: blue;
-      position: absolute;
-    }
-  }
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
 
-  50%{
-    #first-bar,
-    #second-bar,
-    #third-bar {
-      background-color: red;
-      position: static;
-    }
-  }
+  --bg-primary: #05051a;
+  --bg-secondary: #090b27;
+  --bg-card: #101333;
+  --bg-sidebar: #080b25;
+  --bg-input: #151a40;
+  --bg-hover: #1d2050;
+
+  --border: #292b59;
+
+  --text-primary: #ffffff;
+  --text-secondary: #c5c8e5;
+  --text-muted: #8589b5;
+  --text-disabled: #555a80;
+
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* =================================
+   LIGHT THEME
+================================= */
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bg-primary: #f5f4ff;
+  --bg-secondary: #ecebff;
+  --bg-card: #ffffff;
+  --bg-sidebar: #f0eeff;
+  --bg-input: #f3f1ff;
+  --bg-hover: #e6e1ff;
+
+  --border: #ddd9f8;
+
+  --text-primary: #171433;
+  --text-secondary: #55516f;
+  --text-muted: #85819f;
+  --text-disabled: #b0adc5;
+
+  --shadow: 0 8px 30px rgba(66, 42, 140, 0.08);
+}
+
+/* =================================
+   GLOBAL STYLES
+================================= */
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.primary-button {
+  background: var(--gradient-primary);
+  color: #ffffff;
+}
+
+input {
+  background: var(--bg-input);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
 }
