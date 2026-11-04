@@ -1,11 +1,15 @@
+
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 
+// ===============================
+// USER REGISTRATION
+// ===============================
 const userAuthReg = async (req, res) => {
   const { uname, pass } = req.body;
 
   try {
-    // Validate input
+    // 1. Validate input
     if (
       typeof uname !== "string" ||
       typeof pass !== "string" ||
@@ -18,34 +22,42 @@ const userAuthReg = async (req, res) => {
       });
     }
 
-    if ((await User.find({ username: uname })).length) {
-      return res.status(400).json({
+    const username = uname.trim();
+
+    // 2. Check whether username already exists
+    const existingUser = await User.findOne({
+      username: username,
+    });
+
+    if (existingUser) {
+      return res.status(409).json({
         success: false,
         message: "Username already exists",
       });
     }
 
-    // Hash password
+    // 3. Hash password
     const hashedPassword = await bcrypt.hash(pass, 12);
-    // console.log(await bcrypt.compare("1111", hashedPassword))
 
+    // 4. Create user
     const user = await User.create({
-      username: uname,
+      username,
       password: hashedPassword,
     });
 
-    return res.status(200).json({
-      status: "ok",
+    // 5. Send response
+    return res.status(201).json({
+      success: true,
       message: "User created successfully",
       data: {
-        _id: user._id,
+        id: user._id,
         username: user.username,
       },
     });
+
   } catch (error) {
     console.error("Registration error:", error);
 
-    // Handle duplicate username
     if (error.code === 11000) {
       return res.status(409).json({
         success: false,
@@ -59,6 +71,11 @@ const userAuthReg = async (req, res) => {
     });
   }
 };
+
+
+// ===============================
+// USER LOGIN
+// ===============================
 const userAuthLogIn = async (req, res) => {
   const { uname, pass } = req.body;
 
@@ -76,23 +93,25 @@ const userAuthLogIn = async (req, res) => {
       });
     }
 
-    // 2. Find user in MongoDB
+    const username = uname.trim();
+
+    // 2. Find user
     const user = await User.findOne({
-      username: uname.trim(),
+      username: username,
     });
 
-    // 3. Check if user exists
+    // 3. Check user existence
     if (!user) {
       return res.status(401).json({
         success: false,
         message: "Invalid username or password",
       });
     }
-    console.log(user)
-    // 4. Compare entered password with stored hash
+
+    // 4. Compare password
     const isMatch = await bcrypt.compare(pass, user.password);
 
-    // 5. Check password
+    // 5. Check password match
     if (!isMatch) {
       return res.status(401).json({
         success: false,
@@ -120,4 +139,11 @@ const userAuthLogIn = async (req, res) => {
   }
 };
 
-module.exports = {userAuthLogIn, userAuthReg}
+
+// ===============================
+// EXPORT FUNCTIONS
+// ===============================
+module.exports = {
+  userAuthLogIn,
+  userAuthReg,
+};

@@ -33,7 +33,7 @@ app.get("/", (req, res) => {
 // React home page
 app.get("/home", (req, res) => {
     const user = {
-        "name": "Akshay",
+        "name": "Disha",
         "age": 21,
         "marks": 98
     }
