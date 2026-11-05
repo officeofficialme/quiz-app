@@ -6,6 +6,12 @@ interface HamburgerProps {
 }
 
 const Hamburger = ({ isOpen, setIsOpen }: HamburgerProps) => {
+  const barTransition = {
+    type: "spring" as const,
+    stiffness: 250,
+    damping: 18,
+  };
+
   return (
     <motion.button
       onClick={() => setIsOpen(!isOpen)}
@@ -13,12 +19,10 @@ const Hamburger = ({ isOpen, setIsOpen }: HamburgerProps) => {
       aria-label={isOpen ? "Close menu" : "Open menu"}
       aria-expanded={isOpen}
       className="
-      min-md:hidden
-        relative flex h-10 w-10 items-center justify-center
+        md:hidden relative flex h-10 w-10 items-center justify-center
         overflow-hidden rounded-2xl
-        border border-violet-500/30
-        bg-white dark:bg-[#17112D]
-        shadow-lg shadow-violet-500/10
+         border-violet-500/30
+        
         transition-colors duration-300
         hover:border-violet-500/70
         mt-1
@@ -30,30 +34,28 @@ const Hamburger = ({ isOpen, setIsOpen }: HamburgerProps) => {
           scale: isOpen ? 1.8 : 0.8,
           opacity: isOpen ? 0.18 : 0,
         }}
-        transition={{ duration: 0.4 }}
-        className="
-          absolute h-8 w-8 rounded-full
-          bg-violet-500 blur-xl
-        "
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        className="absolute h-8 w-8 rounded-full bg-violet-500 blur-xl"
       />
 
       {/* Animated bars */}
-      <span className="relative h-6 w-6">
-
+      <span className="relative h-6 w-6 ">
+        {/* Top bar */}
         <motion.span
           animate={{
             top: isOpen ? 10 : 3,
             left: isOpen ? 3 : 2,
             rotate: isOpen ? 45 : 0,
-            width: isOpen ? 20 : 20,
+            width: 20,
           }}
-          transition={{ type: "spring", stiffness: 250, damping: 18 }}
-          className="
+          transition={barTransition}
+          className={`
             absolute h-[3px] rounded-full
-            bg-gradient-to-r from-violet-500 to-fuchsia-500
-          "
+          bg-gradient-to-r from-violet-500  to-fuchsia-500 dark:from-white dark:to-white
+          `}
         />
 
+        {/* Middle bar */}
         <motion.span
           animate={{
             top: 10,
@@ -62,13 +64,14 @@ const Hamburger = ({ isOpen, setIsOpen }: HamburgerProps) => {
             opacity: isOpen ? 1 : 0.8,
             width: isOpen ? 20 : 12,
           }}
-          transition={{ type: "spring", stiffness: 250, damping: 18 }}
+          transition={barTransition}
           className="
             absolute h-[3px] rounded-full
-            bg-gradient-to-r from-fuchsia-500 to-violet-500
+            bg-gradient-to-r from-fuchsia-500 to-violet-500  dark:from-white dark:to-white
           "
         />
 
+        {/* Bottom bar */}
         <motion.span
           animate={{
             top: isOpen ? 10 : 17,
@@ -77,13 +80,12 @@ const Hamburger = ({ isOpen, setIsOpen }: HamburgerProps) => {
             opacity: isOpen ? 0 : 1,
             width: isOpen ? 16 : 20,
           }}
-          transition={{ type: "spring", stiffness: 250, damping: 18 }}
+          transition={barTransition}
           className="
             absolute h-[3px] rounded-full
-            bg-gradient-to-r from-violet-500 to-fuchsia-500
+            bg-gradient-to-r from-violet-500 to-fuchsia-500  dark:from-white dark:to-white
           "
         />
-
       </span>
     </motion.button>
   );

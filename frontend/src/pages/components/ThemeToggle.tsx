@@ -28,7 +28,7 @@ function ThemeToggle() {
       type="button"
       onClick={toggleTheme}
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
-      className="relative max-md:h-fit flex items-center gap-3 overflow-hidden rounded-full border border-[#292B59] bg-white max-md:bg-transparent px-4 py-2 max-md:px-2 max-md:py-2 max-md:border-none text-black transition-colors duration-500  dark:text-white dark:bg-transparent"
+      className="relative max-md:h-fit flex items-center gap-3 overflow-hidden rounded-full border border-[#292B59] bg-white max-md:bg-transparent px-4 py-2 max-md:px-2 max-md:py-2 max-md:border-none text-black transition-colors duration-500  dark:text-white dark:bg-transparent "
     >
       {/* Animated Sun / Moon */}
 

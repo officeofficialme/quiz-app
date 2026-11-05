@@ -123,16 +123,17 @@ const Sidebar = () => {
           </nav>
 
           <button className="flex gap-3 text-shadow-gray-800 dark:text-white w-full cursor-pointer active:scale-95 justify-center transition-all duration-200 text-center rounded-2xl outline-none">
-            <span className="flex hover:text-red-600 active:text-red-700">
+            <span className="flex hover:text-red-600 active:text-red-700 mb-2">
               <LogOut />
               Log Out
             </span>
           </button>
         </div>
 
-        <div className="flex max-md:absolute max-md:top-0 max-md:right-0">
+        <div className="flex items-center gap-1 max-md:absolute max-md:top-0 max-md:right-0">
           <HamIcon isOpen={isOpen} setIsOpen={setIsOpen} />
-          <ThemeToggle />
+          <Link to="/profile" className="hidden max-md:block"><UserRound size={20} className="ml-2"/></Link>
+          <ThemeToggle/>
         </div>
       </aside>
     </div>
