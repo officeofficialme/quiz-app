@@ -6,6 +6,7 @@
   transition-property: background-color, border-color, color;
   transition-duration: 300ms;
   transition-timing-function: ease;
+  box-sizing: border-box;
 }
 
 :root {
@@ -107,4 +108,27 @@ input {
   background: var(--bg-input);
   color: var(--text-primary);
   border: 1px solid var(--border);
+}
+
+/* 
+#nav-container{
+  animation: openNavContainer 1s ease-out;
+} */
+
+@keyframes openNavContainer {
+  from{
+    height: 0px;
+  }
+  to{
+    height: 420px;
+  }
+}
+
+@keyframes closeNavContainer {
+  from{
+    height: 420px;
+  }
+  to{
+    height: 0px;
+  }
 }

@@ -22,13 +22,13 @@ function ThemeToggle() {
   };
 
   const isDark = theme === "dark";
-
+  console.log(document.documentElement.getAttribute('data-theme'))
   return (
     <button
       type="button"
       onClick={toggleTheme}
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
-      className="relative flex items-center gap-3 overflow-hidden rounded-full border border-[#292B59] bg-white px-4 py-2 text-black transition-colors duration-500 dark:bg-[#101333] dark:text-white"
+      className="relative max-md:h-fit flex items-center gap-3 overflow-hidden rounded-full border border-[#292B59] bg-white max-md:bg-transparent px-4 py-2 max-md:px-2 max-md:py-2 max-md:border-none text-black transition-colors duration-500  dark:text-white dark:bg-transparent"
     >
       {/* Animated Sun / Moon */}
 
@@ -74,7 +74,7 @@ function ThemeToggle() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.2 }}
-          className="font-medium"
+          className="font-medium  max-md:hidden"
         >
           {isDark ? "Dark Mode" : "Light Mode"}
         </motion.span>
@@ -82,12 +82,12 @@ function ThemeToggle() {
 
       {/* Sliding switch */}
       <span
-        className={`relative h-6 w-11 rounded-full transition-colors duration-100 ${
+        className={`relative  max-md:hidden h-6 w-11 rounded-full transition-colors duration-100 ${
           isDark ? "bg-purple-600" : "bg-yellow-400"
         }`}
       >
         <motion.span
-          animate={{ x: isDark ? 14 : 1 }}
+          animate={{ x: isDark ? 14 : 0 }}
           transition={{
             type: "spring",
             stiffness: 300,

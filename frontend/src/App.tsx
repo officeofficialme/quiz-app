@@ -1,21 +1,17 @@
-import { BrowserRouter, Routes, Route } from "react-router";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Sidebar from "./pages/components/Sidebar";
 
-// import Counter from "./components/Counter.tsx";
-
 export const App = () => {
   return (
-    <div className="flex">
+    <div className="flex max-md:block">
       <Sidebar />
-      <BrowserRouter>
-        {/* <Counter /> */}
+
+      <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/auth/login" element={<Login />} />
-        <Route path="/auth/reg" element={<RegisterPage />} /> */}
         </Routes>
-      </BrowserRouter>
+      </main>
     </div>
   );
 };
