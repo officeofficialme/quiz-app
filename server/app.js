@@ -48,7 +48,7 @@ app.get("/api/ai", async (req, res) => {
     try {
         const response = await ai.models.generateContent({
             model: "gemini-3.1-flash-lite",
-            contents: "Create 5 JavaScript quiz questions with answers",
+            contents: "Create 5 JavaScript quiz questions with answers give it a proper json format only the array of json",
         });
 
         res.json({ answer: response.text });
