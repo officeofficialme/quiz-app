@@ -34,7 +34,7 @@ const Sidebar = () => {
     "text-white bg-[#8B5CF6] hover:bg-[#7C3AED] active:scale-95 shadow-lg shadow-violet-500/25";
 
   return (
-    <div className="m-1 h-[calc(100dvh-8px)] min-h-[calc(100dvh-8px)] max-md:h-auto">
+    <div className="m-1 h-[calc(100dvh-8px)] max-md:h-auto">
       <aside
         className={`relative w-60 h-full max-md:w-full max-md:h-auto max-md:min-h-0 max-md:block max-md:px-3 max-md:py-2 rounded-l-2xl dark:bg-linear-to-br border border-[#292B59] from-[#080B14] via-[#17112D] to-[#3b0bac] px-6 py-6 flex justify-between flex-col`}
       >
