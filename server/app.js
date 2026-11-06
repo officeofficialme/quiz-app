@@ -44,11 +44,11 @@ app.get("/home", (req, res) => {
   });
 });
 
-app.post("/api/ai", async (req, res) => {
+app.get("/api/ai", async (req, res) => {
     try {
         const response = await ai.models.generateContent({
-            model: "gemini-3.8-flash",
-            contents: req.body.prompt,
+            model: "gemini-3.1-flash-lite",
+            contents: "Create 5 JavaScript quiz questions with answers",
         });
 
         res.json({ answer: response.text });
