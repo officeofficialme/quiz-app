@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 type AIrespones = {
-  answer: "";
+  answer: string;
 };
 
 const AI = () => {
@@ -14,19 +14,19 @@ const AI = () => {
       });
   }, []);
 
-  console.log(response.answer)
-  response.answer.split("\n\n---\n\n### ").forEach((ans) => {
-    console.log(ans);
-  });
+  console.log(response.answer);
+  const answer = response.answer
+    ? response.answer.split("\n\n---\n\n### ")
+    : [];
 
   console.log(typeof response);
   return (
     <div>
-      {/* <ul> */}
-        {/* {response.answer.split("\n\n---\n\n### ").map((ans: string, idx: number) => {
-          <li key={idx}>{ans}</li>;
-        })} */}
-      {/* </ul> */}
+      <ul>
+        {answer.map((ans, key) => (
+            <li key={key}>{ans}</li>
+        ))}
+      </ul>
     </div>
   );
 };
