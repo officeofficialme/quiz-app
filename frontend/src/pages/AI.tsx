@@ -1,32 +1,65 @@
 import { useEffect, useState } from "react";
 
-type AIrespones = {
+type Question = {
+  id: number;
+  question: string;
+  options: string[];
   answer: string;
 };
 
 const AI = () => {
-  const [response, setRespone] = useState<AIrespones>({ answer: "" });
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/ai`)
-      .then((res) => res.json())
-      .then((aiRes) => {
-        setRespone(aiRes);
-      });
+    const getQuestions = async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/ai`);
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch questions");
+        }
+
+        const data = await res.json();
+
+        console.log("Backend response:", data);
+
+        if (!data.answer) {
+          throw new Error("Gemini returned an empty answer");
+        }
+
+        const parsedQuestions: Question[] = JSON.parse(data.answer);
+
+        setQuestions(parsedQuestions);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Something went wrong");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getQuestions();
   }, []);
 
-  console.log(response.answer);
-  const answer = response.answer
-    ? response.answer.split("\n\n---\n\n### ")
-    : [];
+  if (loading) return <p>Generating questions...</p>;
+  if (error) return <p>{error}</p>;
 
-  console.log(typeof response);
   return (
     <div>
-      <ul>
-        {answer.map((ans, key) => (
-            <li key={key}>{ans}</li>
-        ))}
-      </ul>
+      {questions.map((q) => (
+        <div key={q.id}>
+            <ul>
+          <h3>{q.question}</h3>
+
+          {q.options.map((option, index) => (
+            <li key={index}>{index+1}: {option}</li>
+          ))}
+
+          <p>Answer: {q.answer}</p>
+          </ul>
+        </div>
+      ))}
     </div>
   );
 };
